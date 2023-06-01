@@ -20,7 +20,7 @@ const login_post=(req,res)=>{
                     if(result){
                         const token=jwt.sign({id:docs.id},process.env.ACCESS_TOKEN,{expiresIn:"1d"})
                         res.cookie("token",token)
-                        res.send("Salom "+ docs.phone)
+                        res.send(docs)
                     } else {
                         res.send("Parolni tig'ri kiriting")
                     }
