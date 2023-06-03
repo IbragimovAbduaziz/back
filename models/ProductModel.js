@@ -18,8 +18,10 @@ const Products= new Schema({
       type:String
    },
    phone:{
-      type:String,
-      required:true
+      type:String
+   },
+   user:{
+      type:[String]
    },
    amount:{
       type:String,

@@ -9,8 +9,20 @@ const product_get_id=(req,res)=>{
 }
 
 const product_post=(req,res)=>{
-    const {category,name,phone,amount,volume,price,valuta,address,comment}=req.body
-    res.send("Post")
+    const {category,name,phone,user,amount,volume,price,valuta,region,okrug,comment}=req.body
+    const product=new Products({
+        caregory:category,
+        name:name,
+        phone:phone,
+        user:user,
+        amount:amount,
+        volume:volume,
+        price:price,
+        valuta:valuta,
+        address:region+","+okrug,
+        commnet:comment
+    })
+    
 }
 
 const product_delete=(req,res)=>{

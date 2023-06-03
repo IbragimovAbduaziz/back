@@ -48,7 +48,7 @@ const register_post=(req,res)=>{
         Users.findOne({phone:phone})
         .then((docs)=>{
             if(docs){
-                res.send("Bunday foydalanuvchi mavjud")
+                res.status(403).send({messege:"Bunday foydalanuvchi mavjud"})
             } else {
                   bcrypt.hash(password, 10).then(function(hash) {
                     const user=new Users({

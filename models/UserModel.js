@@ -21,7 +21,8 @@ const Users= new Schema({
     date:{
         type:String,
         default:Date.now()
-    }
+    },
+    refresh_token:String
 },
 {
     timestamps:true
