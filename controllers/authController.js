@@ -20,13 +20,21 @@ const login_post=(req,res)=>{
                     if(result){
                         const token=jwt.sign({id:docs.id},process.env.ACCESS_TOKEN,{expiresIn:"1d"})
                         res.cookie("token",token)
-                        res.send(docs)
+                        res.send({
+                            messege:"ok",
+                            token:token,
+                            user:docs
+                        })
                     } else {
-                        res.send("Parolni tig'ri kiriting")
+                        res.status(403).send({
+                            messege:"Parolni tig'ri kiriting"
+                        })
                     }
                   });
             } else {
-                res.send("Bunday foydalanuvchi mavjud emas")
+                res.status(403).send({
+                    messege:"Bunday foydalanuvchi mavjud emas"
+                })
             }
         })
         .catch((err)=>{
@@ -58,6 +66,7 @@ const register_post=(req,res)=>{
                     })
                     user.save()
                     const token=jwt.sign({id:user.id},process.env.ACCESS_TOKEN,{expiresIn:"1d"})
+                    res.cookie("token",token)
                     res.send({
                         messege:"Ro'yxadan o'tingiz",
                         token:token,
