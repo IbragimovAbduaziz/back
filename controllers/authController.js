@@ -19,7 +19,7 @@ const login_post=(req,res)=>{
                 bcrypt.compare(password, docs.password).then(function(result) {
                     if(result){
                         const token=jwt.sign({id:docs.id},process.env.ACCESS_TOKEN,{expiresIn:"1d"})
-                        res.cookie("token",token)
+                        res.cookie("token",token,{httpOnly:true})
                         res.send({
                             messege:"ok",
                             token:token,
@@ -66,7 +66,7 @@ const register_post=(req,res)=>{
                     })
                     user.save()
                     const token=jwt.sign({id:user.id},process.env.ACCESS_TOKEN,{expiresIn:"1d"})
-                    res.cookie("token",token)
+                    res.cookie("token",token,{httpOnly:true})
                     res.status(201).send({
                         messege:"Ro'yxadan o'tingiz",
                         token:token,
