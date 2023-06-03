@@ -26,13 +26,13 @@ const login_post=(req,res)=>{
                             user:docs
                         })
                     } else {
-                        res.status(403).send({
-                            messege:"Parolni tig'ri kiriting"
+                        res.status(401).send({
+                            messege:"Telefon yoki parol xato"
                         })
                     }
                   });
             } else {
-                res.status(403).send({
+                res.status(401).send({
                     messege:"Bunday foydalanuvchi mavjud emas"
                 })
             }
@@ -56,7 +56,7 @@ const register_post=(req,res)=>{
         Users.findOne({phone:phone})
         .then((docs)=>{
             if(docs){
-                res.status(403).send({messege:"Bunday foydalanuvchi mavjud"})
+                res.status(401).send({messege:"Bunday foydalanuvchi mavjud"})
             } else {
                   bcrypt.hash(password, 10).then(function(hash) {
                     const user=new Users({
@@ -67,7 +67,7 @@ const register_post=(req,res)=>{
                     user.save()
                     const token=jwt.sign({id:user.id},process.env.ACCESS_TOKEN,{expiresIn:"1d"})
                     res.cookie("token",token)
-                    res.send({
+                    res.status(201).send({
                         messege:"Ro'yxadan o'tingiz",
                         token:token,
                         user:user
