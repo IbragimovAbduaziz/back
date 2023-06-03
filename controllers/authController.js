@@ -57,7 +57,12 @@ const register_post=(req,res)=>{
                         address:region+","+okrug
                     })
                     user.save()
-                    res.send("Ro'yxadan o'tingiz")
+                    const token=jwt.sign({id:user.id},process.env.ACCESS_TOKEN,{expiresIn:"1d"})
+                    res.send({
+                        messege:"Ro'yxadan o'tingiz",
+                        token:token,
+                        user:user
+                    })
                 });                
             }
         })
