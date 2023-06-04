@@ -24,7 +24,8 @@ router.post('/register',
     .custom((value, {req}) => value === req.body.password).withMessage("Parol tug'ri takrorlang")    
 ],
 auth.register_post)
-router.get("/dashboard",authCookie.authJwt,auth.dashboard)
+router.get("/dashboard",authCookie.authentication,auth.dashboard)
 router.get('/logout',auth.logout)
+router.post('/refresh', auth.refresh)
 
 module.exports = router;
