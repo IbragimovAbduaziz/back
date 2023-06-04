@@ -106,7 +106,7 @@ async function logout(req,res){
 }
 
 async function dashboard(req,res){
-    res.send("Dashboard")
+    res.send({user:req.user})
 }
 
 async function refresh(req,res){

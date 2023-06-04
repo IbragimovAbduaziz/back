@@ -11,17 +11,14 @@ const Products= new Schema({
       type:String,
       required:true
    },
-   user_id:{
+   user_fullname:{
       type:String
    },
-   user:{
+   user_id:{
       type:String
    },
    phone:{
       type:String
-   },
-   user:{
-      type:[String]
    },
    amount:{
       type:String,

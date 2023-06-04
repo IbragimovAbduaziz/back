@@ -8,13 +8,11 @@ const product_get_id=(req,res)=>{
     res.send("Product id")
 }
 
-const product_post=(req,res)=>{
+async function product_post(req,res){
     const {category,name,phone,user,amount,volume,price,valuta,region,okrug,comment}=req.body
     const product=new Products({
         caregory:category,
         name:name,
-        phone:phone,
-        user:user,
         amount:amount,
         volume:volume,
         price:price,
@@ -22,6 +20,18 @@ const product_post=(req,res)=>{
         address:region+","+okrug,
         commnet:comment
     })
+    if(phone){
+       product.phone=phone
+    } 
+    if(req.user){
+        product.user_fullname=req.user.fullname.toString()
+        product.user_id=req.user._id
+    }  
+    if(user) {
+        product.user_fullname=user
+    }
+    
+    res.send(product)
     
 }
 

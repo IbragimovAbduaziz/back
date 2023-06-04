@@ -8,20 +8,19 @@ function authentication(req,res,next) {
         jwt.verify(token,process.env.ACCESS_TOKEN, async (err,decoded)=>{
             if(err) {
                 req.user={}
-                res.sendStatus(403)
+                return next()
             }
             const user=await User.findById(decoded._id).select({password:0, refresh_token: 0}).exec()
             if(user){
                 req.user=user.toObject({getters:true})
-                return next()
             } else {
-                res.sendStatus(403)
+                req.user={}
             }
-            res.sendStatus(403)
+            return next()
         })
     } else {
         req.user={}
-        res.sendStatus(403)
+        return next()
     }
 }
 
