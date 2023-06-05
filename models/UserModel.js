@@ -4,7 +4,7 @@ const Schema=mongoose.Schema
 
 const Users= new Schema({
     fullname:{
-        type:[String]
+        type:String
     },
     phone:{
         type:String,
