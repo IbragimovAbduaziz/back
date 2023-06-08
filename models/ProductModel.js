@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Schema=mongoose.Schema
 
 const Products= new Schema({
-   caregory:{
+   category:{
     type:String,
     required:true
    },
@@ -41,15 +41,13 @@ const Products= new Schema({
       required:true
    },
    comment:{
-      type:String,
-      required:true
+      type:String
    },
    imges:{
       type:String
    },
    status:{
       type:String,
-      default:"inactive"
    },
    date:{
       type:Date,

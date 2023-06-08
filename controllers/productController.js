@@ -2,20 +2,27 @@ const Products=require('../models/ProductModel')
 const {validationResult}=require('express-validator')
 
 const product_get=(req,res)=>{
-    res.send("dsjhdkjahsjdka")
+    Products.find().then(data=>{
+        res.send(data)
+    })
+    
 }
 
 const product_get_id=(req,res)=>{
-    res.send("Product id")
+    const id=req.params.id
+    Products.findById(id).then(data=>{
+       res.send(data)
+    })
+    
 }
 
 const product_post=(req,res)=>{
     if(!validationResult(req).isEmpty()){
         res.send(validationResult(req));
     } else {
-        const {category,name,phone,user,amount,volume,price,valuta,region,okrug,comment}=req.body
+        const {category,name,phone,user_fullname,amount,volume,price,valuta,region,okrug,comment}=req.body
         const product=new Products({
-            caregory:category,
+            category:category,
             name:name,
             phone:phone,
             amount:amount,
@@ -23,19 +30,27 @@ const product_post=(req,res)=>{
             price:price,
             valuta:valuta,
             address:region+","+okrug,
-            commnet:comment
+            comment:comment
         })
         if(req.user){
             const username=req.user
             product.user_fullname=username.fullname
             product.user_id=req.user._id
+            product.status="active"
+            product.save().then(data=>{
+                res.send(data)
+            })
         }  
-        if(user) {
-            product.user_fullname=user
+        if(user_fullname && region.user=={}) {
+            product.user_fullname=user_fullname
+            product.status="inactive"
+            product.save().then(data=>{
+                res.send(data)
+            })
         }
-
-        product.seve()
-    }    
+        
+                
+}
 }
 
 const product_delete=(req,res)=>{
