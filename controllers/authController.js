@@ -133,4 +133,8 @@ async function refresh(req,res){
     )
 }
 
-module.exports = {login_get, login_post, register_get, register_post,logout,dashboard,refresh }
+async function user(req,res){
+    const user=req.user
+    res.send(user)
+}
+module.exports = {login_get, login_post, register_get, register_post,logout,dashboard,refresh,user }
