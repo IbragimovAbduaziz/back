@@ -49,6 +49,10 @@ const Products= new Schema({
    status:{
       type:String,
    },
+   payment:{
+      type:String,
+      default:"unpaid"
+   },
    date:{
       type:Date,
       default:Date.now()
