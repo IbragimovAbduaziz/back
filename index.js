@@ -4,6 +4,7 @@ const mongoose=require('mongoose')
 const cookieParser=require('cookie-parser')
 require('dotenv').config()
 const corsOptions=require('./config/cors')
+const bodyParser=require('body-parser')
 
 const app=express()
 
@@ -18,7 +19,7 @@ const DBURI=process.env.DBURI;
 
 app.use(credentals)
 app.use(cors(corsOptions))
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false}))
 app.use(express.json())
 app.use(cookieParser())
 app.use(auth)
