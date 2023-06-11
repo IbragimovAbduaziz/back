@@ -36,7 +36,7 @@ router.put("/img/:id",authCookie.authentication,uploads.array('imges'),(req,res)
     if(req.user.fullname){
         Products.findById(id)
         .then(data=>{
-            let images={imges:data.imges}
+            let images={imges:data.imges+","}
             if(req.files) {            
                 let path=''
                 req.files.forEach(function(files,index,arr){
@@ -47,7 +47,7 @@ router.put("/img/:id",authCookie.authentication,uploads.array('imges'),(req,res)
             }     
             Products.findByIdAndUpdate(id,images)
             .then(()=>{
-                res.send({messege:"Rasm yangilandi"})
+                res.send({id:id,messege:"Rasm yangilandi"})
             })
             .catch(()=>{
                 res.status(401).send({messege:"Xatolik"})
