@@ -89,4 +89,6 @@ const product_update=(req,res)=>{
         res.status(401).send({messege:"Xatolik"})
     })
 }
+
+
 module.exports={product_get,product_get_id,product_post,product_delete,product_update}

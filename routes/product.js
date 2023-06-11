@@ -35,7 +35,7 @@ var uploads=multer({
 
 router.get('/product',authCookie.authentication,product.product_get)
 router.get('/product/:id',authCookie.authentication,product.product_get_id)
-router.post('/product',authCookie.authentication,uploads.array('imges',5),[
+router.post('/product',authCookie.authentication,uploads.array('imges',6),[
     body('category').notEmpty().withMessage('Categoriyani tanlang'),
     body('name').notEmpty().withMessage('Maxsulot nomini kiriting'),
     body('phone').notEmpty().withMessage("Telfon raqamni kiriting")
@@ -48,6 +48,6 @@ router.post('/product',authCookie.authentication,uploads.array('imges',5),[
     body('okrug').notEmpty().withMessage('Tumani kiriting')
 ], product.product_post)
 router.delete('/product/:id',authCookie.authentication,product.product_delete)
-router.put('/product/:id',authCookie.authentication,product.product_update)
-
+router.put('/product/:id',authCookie.authentication,product.product_update) 
+ 
 module.exports=router;

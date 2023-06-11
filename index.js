@@ -25,6 +25,7 @@ app.use(cookieParser())
 app.use(auth)
 app.use(product)
 app.use(errorHandler)
+app.use('/product',require('./routes/productimg'))
 
 app.all("*", (req,res)=>{
   res.status(404)
@@ -40,5 +41,3 @@ mongoose.connect(DBURI)
     console.log("server running");
   }))
   .catch((err)=>console.log(err))
-
-// hello
