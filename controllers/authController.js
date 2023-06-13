@@ -18,20 +18,10 @@ async function login_post(req,res){
             if(docs){
                 bcrypt.compare(password, docs.password).then(function(result) {
                     if(result){
-                        //const token=jwt.sign({id:docs.id},process.env.ACCESS_TOKEN,{expiresIn:"1800s"})
-                        //const refreshToken=jwt.sign({id:docs.id},process.env.REFRESH_TOKEN,{expiresIn:"1d"})
-                        //docs.refresh_token=refreshToken
-                        //docs.save()
-                        //res.cookie("refresh_token",refreshToken,{maxAge: 900000,httpOnly:true,sameSite:"none"})
-                        //res.send({
-                        //    messege:"ok",
-                        //    token:token,
-                        //    user:docs
-                        //})
                         const token=jwt.sign({id:docs.id},process.env.ACCESS_TOKEN,{expiresIn:"7d"})
                         docs.save()
-                        res.cookie("token",token,{maxAge: 900000,httpOnly:true,sameSite:"none"})
                         res.send({
+                            token:token,
                             user:docs
                         })
                     } else {
@@ -74,19 +64,10 @@ async function register_post(req,res){
                         address:region+","+okrug
                     })
                     user.save()
-                    //const token=jwt.sign({id:user.id},process.env.ACCESS_TOKEN,{expiresIn:"1800s"})
-                    //const refreshToken=jwt.sign({id:user.id},process.env.REFRESH_TOKEN,{expiresIn:"1d"})
-                    //user.refresh_token=refreshToken
-                    //res.cookie("refresh_token",refreshToken,{maxAge: 900000,httpOnly:true,sameSite:"none",secure:true})
-                    //res.status(201).send({
-                    //    messege:"Ro'yxadan o'tingiz",
-                    //    token:token,
-                    //    user:user
-                    //})
                     const token=jwt.sign({id:user.id},process.env.ACCESS_TOKEN,{expiresIn:"7d"})
-                    res.cookie("token",token,{maxAge: 900000,httpOnly:true,sameSite:"none",secure:true})
                     res.status(201).send({
                         messege:"Ro'yxadan o'tingiz",
+                        token:token,
                         user:user
                     })
                 });                
