@@ -26,7 +26,7 @@ router.post('/register',
 auth.register_post)
 router.get("/dashboard",authCookie.authentication,auth.dashboard)
 router.get('/logout',auth.logout)
-router.post('/refresh', auth.refresh)
+//router.post('/refresh', auth.refresh)
 router.get('/user', authCookie.authentication,auth.user)
 
 module.exports = router;
