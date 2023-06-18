@@ -1,5 +1,10 @@
 const Products=require('../models/ProductModel')
 const {validationResult}=require('express-validator')
+const Categoriya=require('../config/categoriya')
+
+const categoriya=(req,res)=>{
+    res.send(Categoriya)
+}
 
 const product_get=(req,res)=>{
     Products.find().then(data=>{
@@ -94,4 +99,4 @@ const product_update=(req,res)=>{
 }
 
 
-module.exports={product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
+module.exports={categoriya,product_get,product_get_id,product_user_id,product_post,product_delete,product_update}

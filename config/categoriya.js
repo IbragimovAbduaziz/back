@@ -1,0 +1,59 @@
+const categoriya=[
+    {
+        id:1,
+        name:"Uy joy",
+        img:"upload/categoriya/skyscraper.png"
+    },
+    {
+        id:2,
+        name:"Transport",
+        img:"upload/categoriya/transportation.png"
+    },
+    {
+        id:3,
+        name:"Electronika",
+        img:"upload/categoriya/electronics.png"
+    },
+    {
+        id:4,
+        name:"Hayvonlar",
+        img:"upload/categoriya/livestock.png"
+    },
+    {
+        id:5,
+        name:"Xizmat",
+        img:"upload/categoriya/customer-service.png"
+    },
+    {
+        id:6,
+        name:"Qishloq xo'jaligi",
+        img:"upload/categoriya/agriculture.png"
+    },
+    {
+        id:7,
+        name:"Kiyim kechak",
+        img:"upload/categoriya/clothes-hanger.png"
+    },
+    {
+        id:8,
+        name:"Sport",
+        img:"upload/categoriya/sports.png"
+    },
+    {
+        id:9,
+        name:"Ish",
+        img:"upload/categoriya/suitcase.png"
+    },
+    {
+        id:10,
+        name:"Ta'lim",
+        img:"upload/categoriya/scholarship.png"
+    },
+    {
+        id:10,
+        name:"Boshqalar",
+        img:"upload/categoriya/more.png"
+    }
+]
+
+module.exports=categoriya
