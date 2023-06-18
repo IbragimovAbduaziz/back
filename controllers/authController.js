@@ -51,7 +51,7 @@ async function register_post(req,res){
     if(!validationResult(req).isEmpty()){
         res.send(validationResult(req));
     } else {
-        const {phone,password,region,okrug}=req.body
+        const {fullname,phone,password,region,okrug}=req.body
         Users.findOne({phone:phone})
         .then((docs)=>{
             if(docs){
@@ -59,6 +59,7 @@ async function register_post(req,res){
             } else {
                   bcrypt.hash(password, 10).then(function(hash) {
                     const user=new Users({
+                        fullname:fullname,
                         phone:phone,
                         password:hash,
                         address:region+","+okrug
@@ -78,26 +79,6 @@ async function register_post(req,res){
         })
     }
 }
-/*
-async function logoutex(req,res){
-    const cookies=req.cookies
-
-    if(!cookies.refresh_token) return res.sendStatus(204)
-
-    const refreshToken=cookies.refresh_token
-    const user=await Users.findOne({refresh_token:refreshToken})
-
-    if(!user){
-        res.clearCookie("refresh_token", {httpOnly:true, sameSite:"none",secure:true})
-        return res.sendStatus(204)
-    }
-    user.refresh_token=null
-    await user.save()
-
-    res.clearCookie("refresh_token", {httpOnly:true, sameSite:"none",secure:true})
-    res.sendStatus(204)
-}
-*/
 
 async function logout(req,res){
     const cookies=req.cookies
@@ -111,34 +92,45 @@ async function logout(req,res){
 async function dashboard(req,res){
     res.send({user:req.user})
 }
-/*
-async function refresh(req,res){
-    const cookies=req.cookies
-    if(!cookies.refresh_token) return res.sendStatus(401)
 
-    const refreshToken=cookies.refresh_token
-
-    const user=await Users.findOne({refresh_token:refreshToken})
-    if(!user) return res.sendStatus(403)
-    jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN,
-        (err,decoded)=>{
-            if(err || user._id!=decoded.id) return res.sendStatus(403)
-            const accessToken=jwt.sign(
-                {_id:decoded.id},
-                process.env.ACCESS_TOKEN,
-                {expiresIn:'1800s'}
-            )
-
-            res.json({access_token:accessToken})
-        }
-    )
-}
-*/
 async function user(req,res){
     const user=req.user
     res.send(user)
 }
 
-module.exports = {login_get,login_post,register_get,register_post,logout,dashboard,user}
+async function users(req,res){
+    Users.find()
+    .then(data=>{
+        res.send(data)
+    })
+}
+
+async function user_id(req,res){
+    const id=req.params.id
+    Users.findById(id)
+    .then(data=>{
+        res.send(data)
+    })
+}
+
+async function user_delete(req,res){
+    const id=req.params.id
+    Users.findByIdAndDelete(id)
+    .then(data=>{
+        res.sendStatus(204).send({messege:"Account o'chirildi"})
+    })
+    .catch(err=>{
+        console.log("xatolik");
+    })
+}
+async function user_update(req,res){
+    const id=req.params.id
+    Products.findByIdAndUpdate(id,req.body)
+    .then(()=>{
+        res.send({messege:"Ma'lumot yangilandi"})
+    })
+    .catch(()=>{
+        res.status(401).send({messege:"Xatolik"})
+    })
+}
+module.exports = {login_get,login_post,register_get,register_post,logout,dashboard,user,users,user_id,user_delete,user_update}

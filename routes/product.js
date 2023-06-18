@@ -2,6 +2,7 @@ const {Router} =require('express')
 const product=require('../controllers/productController')
 const auth=require('../controllers/authController')
 const authCookie=require('../middleware/authCookie')
+const Rules=require('../middleware/roles')
 const router=Router()
 const {body}=require('express-validator')
 const multer=require('multer')
@@ -47,7 +48,8 @@ router.post('/product',authCookie.authentication,uploads.array('imges',6),[
     body('region').notEmpty().withMessage('Viloyatni kiriting'),
     body('okrug').notEmpty().withMessage('Tumani kiriting')
 ], product.product_post)
-router.delete('/product/:id',authCookie.authentication,product.product_delete)
-router.put('/product/:id',authCookie.authentication,product.product_update) 
+router.get('/products/:id',authCookie.authentication,product.product_user_id)
+router.delete('/product/:id',authCookie.authentication,Rules.product_delete,product.product_delete)
+router.put('/product/:id',authCookie.authentication,Rules.product_update,product.product_update) 
  
 module.exports=router;

@@ -22,7 +22,9 @@ const Users= new Schema({
         type:String,
         default:Date.now()
     },
-    refresh_token:String
+    roles:{
+        type:[String]
+    }
 },
 {
     timestamps:true

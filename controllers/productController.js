@@ -22,12 +22,26 @@ const product_get_id=(req,res)=>{
     
 }
 
+const product_user_id=(req,res)=>{
+    const id=req.params.id
+    Products.find({user_id:id}).then(product=>{
+       res.send({
+        user:req.user,
+        product:product
+       })
+    })
+    .catch(err=>{
+        res.status(401).send({messege:"Xatolik"})
+    })
+    
+}
+
 const product_post=(req,res)=>{
     if(!validationResult(req).isEmpty()){
         console.log(req.body);
         res.send(validationResult(req));
     } else {
-        const {category,name,phone,user_fullname,amount,volume,price,valuta,region,okrug,comment}=req.body
+        const {category,name,phone,amount,volume,price,valuta,region,okrug,comment}=req.body
         const product=new Products({
             category:category,
             name:name,
@@ -37,7 +51,11 @@ const product_post=(req,res)=>{
             price:price,
             valuta:valuta,
             address:region+","+okrug,
-            comment:comment
+            comment:comment,
+            user_fullname:req.user.fullname,
+            user_id:req.user._id,
+            status:"active",
+            roles:"getId"
         })
         if(req.files) {            
             let path=''
@@ -46,25 +64,10 @@ const product_post=(req,res)=>{
             })
             path=path.substring(0,path.lastIndexOf(","))
             product.imges=path
-        } 
-        if(req.user){
-            const username=req.user
-            product.user_fullname=username.fullname
-            product.user_id=req.user._id
-            product.status="active"
-            product.save().then(data=>{
-                res.status(201).send(data)
-            })
         }  
-        if(user_fullname && region.user=={}) {
-            product.user_fullname=user_fullname
-            product.status="inactive"
-            product.save().then(data=>{
-                res.status(201).send(data)
-            })
-        }
-        
-                
+        product.save().then(data=>{
+        res.status(201).send(data)
+        })                
 }
 }
 
@@ -91,4 +94,4 @@ const product_update=(req,res)=>{
 }
 
 
-module.exports={product_get,product_get_id,product_post,product_delete,product_update}
+module.exports={product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
