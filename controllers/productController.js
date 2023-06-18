@@ -99,4 +99,4 @@ const product_update=(req,res)=>{
 }
 
 
-module.exports={categoriya,product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
+module.exports={category,product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
