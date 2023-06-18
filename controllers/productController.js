@@ -2,7 +2,7 @@ const Products=require('../models/ProductModel')
 const {validationResult}=require('express-validator')
 const Categoriya=require('../config/categoriya')
 
-const categoriya=(req,res)=>{
+const category=(req,res)=>{
     res.send(Categoriya)
 }
 

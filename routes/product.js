@@ -34,7 +34,7 @@ var uploads=multer({
     }   
 })
 
-router.get('/categoriya',product.categoriya)
+router.get('/category',product.categoriya)
 router.get('/product',authCookie.authentication,product.product_get)
 router.get('/product/:id',authCookie.authentication,product.product_get_id)
 router.post('/product',authCookie.authentication,uploads.array('imges',6),[
