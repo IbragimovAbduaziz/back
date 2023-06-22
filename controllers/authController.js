@@ -10,7 +10,7 @@ async function login_get(req,res){
 
 async function login_post(req,res){
     if(!validationResult(req).isEmpty()){
-        res.sendStatus(403).send(validationResult(req));
+        res.status(403).send(validationResult(req));
     } else {
         const {phone,password}=req.body
         Users.findOne({phone:phone})
@@ -49,7 +49,7 @@ async function register_get(req,res){
 
 async function register_post(req,res){
     if(!validationResult(req).isEmpty()){
-        res.sendStatus(403).send(validationResult(req));
+        res.status(403).send(validationResult(req));
     } else {
         const {fullname,phone,password,region,okrug}=req.body
         Users.findOne({phone:phone})
