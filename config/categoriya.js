@@ -50,7 +50,7 @@ const categoriya=[
         img:"upload/categoriya/scholarship.png"
     },
     {
-        id:10,
+        id:11,
         name:"Boshqalar",
         img:"upload/categoriya/more.png"
     }
