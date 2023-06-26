@@ -115,14 +115,13 @@ async function user_id(req,res){
 
 async function user_delete(req,res){
     const id=req.params.id
-    Users.findByIdAndDelete(id,function (err, docs) {
-        if (!err){
-            res.send("Xatolik")
-        }
-        else{
-            res.status(204).send({messege:"Account o'chirildi"})
-        }
-     })
+    Users.findByIdAndDelete(id)
+    .then(data=>{
+        res.status(204)
+    })
+    .catch(err=>{
+        console.log(err.message);
+    })
 }
 async function user_update(req,res){
     const id=req.params.id
