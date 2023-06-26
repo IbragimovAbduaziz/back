@@ -119,9 +119,6 @@ async function user_delete(req,res){
     .then(data=>{
         res.status(204)
     })
-    .catch(err=>{
-        console.log(err.message);
-    })
 }
 async function user_update(req,res){
     const id=req.params.id
