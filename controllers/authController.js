@@ -117,7 +117,7 @@ async function user_delete(req,res){
     const id=req.params.id
     Users.findByIdAndDelete(id)
     .then(data=>{
-        res.sendStatus(204).send({messege:"Account o'chirildi"})
+        res.status(204).json({messege:"Account o'chirildi"})
     })
     .catch(err=>{
         console.log("xatolik");
