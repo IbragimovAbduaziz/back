@@ -117,10 +117,10 @@ async function user_delete(req,res){
     const id=req.params.id
     Users.findByIdAndDelete(id)
     .then(data=>{
-        res.status(204).json({messege:"Account o'chirildi"})
+        res.status(204)
     })
     .catch(err=>{
-        console.log("xatolik");
+        console.log(err.message);
     })
 }
 async function user_update(req,res){
