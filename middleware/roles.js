@@ -62,7 +62,6 @@ const user_delete=(req,res,next)=>{
     const id=req.params.id
     const userId=req.user.id
     let role=req.user.roles
-
     if(userId==id || role.includes("userDelete")){
         next()
     }else {

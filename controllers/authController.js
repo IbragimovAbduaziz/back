@@ -117,10 +117,16 @@ async function user_delete(req,res){
     const id=req.params.id
     Users.findByIdAndDelete(id)
     .then(data=>{
-        res.status(204)
+        if(!data){
+            res.json({
+                status:"bad"
+            })
+        } else{
+            res.status(204)
+        }
     })
     .catch(err=>{
-        console.log(err.message);
+       console.log(err.message);
     })
 }
 async function user_update(req,res){
