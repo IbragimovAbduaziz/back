@@ -38,6 +38,6 @@ app.all("*", (req,res)=>{
 
 mongoose.connect(DBURI)
   .then((result)=>app.listen(PORT, ()=>{
-    console.log("server running");
+    console.log(`server running port:${PORT}`);
   }))
   .catch((err)=>console.log(err))

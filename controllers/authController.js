@@ -113,17 +113,16 @@ async function user_id(req,res){
     })
 }
 
-async function user_delete(req,res){
-    const id=req.params.id
-    Users.findByIdAndDelete(id)
-    .then((blog) => {
+const user_delete=(req,res)=>{
+    Users.findByIdAndDelete(req.params.id).then((blog) => {
         if (!blog) {
             return res.status(404).send();
         }
-        res.sendStatus(204)
+        res.send(blog);
     }).catch((error) => {
         res.status(500).send(error);
     })
+
 }
 async function user_update(req,res){
     const id=req.params.id
