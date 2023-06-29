@@ -116,17 +116,13 @@ async function user_id(req,res){
 async function user_delete(req,res){
     const id=req.params.id
     Users.findByIdAndDelete(id)
-    .then(data=>{
-        if(!data){
-            res.json({
-                status:"bad"
-            })
-        } else{
-            res.status(204)
+    .then((blog) => {
+        if (!blog) {
+            return res.status(404).send();
         }
-    })
-    .catch(err=>{
-       console.log(err.message);
+        res.sendStatus(204)
+    }).catch((error) => {
+        res.status(500).send(error);
     })
 }
 async function user_update(req,res){
