@@ -124,6 +124,7 @@ const user_delete=(req,res)=>{
     })
 
 }
+
 async function user_update(req,res){
     const id=req.params.id
     Products.findByIdAndUpdate(id,req.body)
