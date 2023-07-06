@@ -1,12 +1,13 @@
-const role=[
-    "productView",
-    "productViewId",
+const roles=[
     "productDelete",
     "productUpdate",
-    "userView",
-    "userViewId",
     "userDelete",
     "userUpdate"
 ]
 
-module.exports=role
+const role={
+    admin:"admin",
+    moderator:"moderator",
+    user:"user"
+}
+module.exports={roles,role}

@@ -24,6 +24,10 @@ const Users= new Schema({
     },
     roles:{
         type:[String]
+    },
+    role:{
+        type:[String],
+        default:["user"]
     }
 },
 {
