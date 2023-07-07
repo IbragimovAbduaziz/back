@@ -44,7 +44,7 @@ const user_get=(req,res,next)=>{
     if(!req.user.role){
         res.sendStatus(403)
     } 
-    else if(role.includes("admin") || role.includes("moderator") || roles.includes('userView')){
+    else if(role.includes("moderator")){
         next()
     } else {
         res.sendStatus(403)
@@ -54,11 +54,11 @@ const user_get=(req,res,next)=>{
 const user_get_id=(req,res,next)=>{
     const id=req.params.id
     const userId=req.user.id
-    let role=req.user.roles
+    let role=req.user.role
     if(!req.user.role){
         res.sendStatus(403)
     }
-    else if(userId==id || role.includes("admin") || role.includes("moderator") || role.includes("userViewId")){
+    else if(userId==id ||role.includes("moderator")){
         next()
     }else {
         res.sendStatus(403)
