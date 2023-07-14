@@ -90,7 +90,7 @@ const user_update=(req,res,next)=>{
     if(!req.user.role){
         res.sendStatus(403)
     }
-    else if(userId==id ||role.includes("admin") || role.includes("moderator") || roles.includes("userUpdate")){
+    else if(userId==id || role.includes("moderator") || roles.includes("userUpdate")){
         Users.findById(id)
         .then(data=>{
             let dataRole=data.role
