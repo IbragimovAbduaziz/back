@@ -140,7 +140,7 @@ async function user_update(req,res){
                     res.status(401).send({messege:"Xatolik"})
                 })
             } else {
-                res.status(304)
+                res.sendStatus(304)
             }
         }
     }
