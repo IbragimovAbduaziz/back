@@ -127,12 +127,24 @@ const user_delete=(req,res)=>{
 
 async function user_update(req,res){
     const id=req.params.id
-    Users.findByIdAndUpdate(id,req.body)
-    .then(()=>{
-        res.send({messege:"Ma'lumot yangilandi"})
-    })
-    .catch(()=>{
-        res.status(401).send({messege:"Xatolik"})
-    })
+    if(req.body.phone){
+        let tel=req.body.phone
+        if(tel.startsWith("+") && tel.length==13){
+            let tel= await Users.findOne({phone:req.body.phone})
+            if(tel==null){
+                Users.findByIdAndUpdate(id,req.body)
+                .then(()=>{
+                    res.send({messege:"Ma'lumot yangilandi"})
+                })
+                .catch(()=>{
+                    res.status(401).send({messege:"Xatolik"})
+                })
+            } else {
+                res.json({messege:"Bunday foydalanuvchi mavjud"})
+            }
+        }
+    }
+    
 }
+
 module.exports = {login_get,login_post,register_get,register_post,logout,dashboard,user,users,user_id,user_delete,user_update}
