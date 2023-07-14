@@ -143,6 +143,14 @@ async function user_update(req,res){
                 res.sendStatus(304)
             }
         }
+    } else {
+        Users.findByIdAndUpdate(id,req.body)
+        .then(()=>{
+            res.send({messege:"Ma'lumot yangilandi"})
+        })
+        .catch(()=>{
+            res.status(401).send({messege:"Xatolik"})
+        })
     }
     
 }
