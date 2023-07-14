@@ -144,6 +144,11 @@ async function user_update(req,res){
             }
         }
     } else {
+        if(req.body.password){
+            await bcrypt.hash(req.body.password, 10).then(function(hash) {
+                req.body.password=hash
+            })
+        }
         Users.findByIdAndUpdate(id,req.body)
         .then(()=>{
             res.send({messege:"Ma'lumot yangilandi"})
