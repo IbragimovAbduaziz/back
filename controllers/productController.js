@@ -1,16 +1,17 @@
 const Products=require('../models/ProductModel')
 const {validationResult}=require('express-validator')
 const Categoriya=require('../config/categoriya')
+const path=require('path')
+const fs=require('fs')
 
 const category=(req,res)=>{
     res.send(Categoriya)
-}
+} 
 
 const product_get=(req,res)=>{
     Products.find().then(data=>{
         res.send(data)
-    })
-    
+    })    
 }
 
 const product_get_id=(req,res)=>{
@@ -43,7 +44,6 @@ const product_user_id=(req,res)=>{
 
 const product_post=(req,res)=>{
     if(!validationResult(req).isEmpty()){
-        console.log(req.body);
         res.send(validationResult(req));
     } else {
         const {category,name,phone,amount,volume,price,valuta,region,okrug,comment}=req.body
@@ -59,8 +59,7 @@ const product_post=(req,res)=>{
             comment:comment,
             user_fullname:req.user.fullname,
             user_id:req.user._id,
-            status:"active",
-            roles:"getId"
+            status:"active"
         })
         if(req.files) {            
             let path=''
@@ -76,15 +75,14 @@ const product_post=(req,res)=>{
 }
 }
 
-const product_delete=(req,res)=>{
+const  product_delete= async (req,res)=>{
     const id=req.params.id
-    Products.findByIdAndDelete(id)
-    .then(()=>{
+    const del= await pdelete(id)
+    if(del){
         res.send({messege:"Ma'lumot o'chirildi"})
-    })
-    .catch(()=>{
+    } else {
         res.status(401).send({messege:"Xatolik"})
-    })
+    }
 }
 
 const product_update=(req,res)=>{
@@ -100,3 +98,27 @@ const product_update=(req,res)=>{
 
 
 module.exports={category,product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
+
+function pdelete(id){
+    Products.findById(id)
+    .then(data=>{
+        let imgs=data.imges.split(",")
+        imgs.forEach(e=>{
+            let img=e.slice(7)
+            if(fs.existsSync(path.join(__dirname,"../upload/",img))){
+                console.log("okk");
+                fs.rmSync(path.join(__dirname,"../upload/",img))
+            }
+        })
+        Products.findByIdAndDelete(id)
+        .then(()=>{
+            return true
+        })
+        .catch(()=>{
+           return false
+        })
+    })
+    .catch(err=>{
+        return false
+    })
+}
