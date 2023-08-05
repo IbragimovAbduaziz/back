@@ -35,7 +35,8 @@ var uploads=multer({
 })
 
 router.get('/category',product.category)
-router.get('/product',authCookie.authentication,product.product_get)
+router.get('/productall',authCookie.authentication,Rules.productall_get,product.productall_get)
+router.get('/product',product.product_get)
 router.get('/product/:id',authCookie.authentication,product.product_get_id)
 router.post('/product',authCookie.authentication,uploads.array('imges',6),[
     body('category').notEmpty().withMessage('Categoriyani tanlang'),

@@ -8,10 +8,22 @@ const category=(req,res)=>{
     res.send(Categoriya)
 } 
 
-const product_get=(req,res)=>{
+const productall_get=(req,res)=>{
     Products.find().then(data=>{
         res.send(data)
     })    
+}
+
+const product_get=(req,res)=>{
+    let active=[]
+    Products.find().then(data=>{
+        data.forEach(e=>{
+            if(e.status=="active"){
+                active.push(e)
+            }
+        })
+        res.send(active)
+    })
 }
 
 const product_get_id=(req,res)=>{
@@ -97,7 +109,7 @@ const product_update=(req,res)=>{
 }
 
 
-module.exports={category,product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
+module.exports={category,productall_get,product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
 
 function pdelete(id){
     Products.findById(id)
