@@ -118,7 +118,6 @@ function pdelete(id){
         imgs.forEach(e=>{
             let img=e.slice(7)
             if(fs.existsSync(path.join(__dirname,"../upload/",img))){
-                console.log("okk");
                 fs.rmSync(path.join(__dirname,"../upload/",img))
             }
         })
@@ -134,3 +133,4 @@ function pdelete(id){
         return false
     })
 }
+

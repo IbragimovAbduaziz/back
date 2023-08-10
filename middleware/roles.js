@@ -4,7 +4,10 @@ const Users=require('../models/UserModel')
 
 const productall_get=(req,res,next)=>{
     let role=req.user.role
-        if(role.includes("moderator")){
+        if(!role){
+            res.sendStatus(403)
+        }
+        else if(role.includes("moderator")){
             next()
         } else {
             res.sendStatus(403)

@@ -55,7 +55,11 @@ const Products= new Schema({
    },
    date:{
       type:Date,
-      default:Date.now()
+      default:Date()
+   },
+   dataend:{
+      type:String,
+      default:1000
    }
 },
    {
