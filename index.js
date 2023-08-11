@@ -5,6 +5,7 @@ const cookieParser=require('cookie-parser')
 require('dotenv').config()
 const corsOptions=require('./config/cors')
 const bodyParser=require('body-parser')
+const path=require('path')
 
 const app=express()
 
@@ -26,6 +27,7 @@ app.use(auth)
 app.use(product)
 app.use(errorHandler)
 app.use('/product',require('./routes/productimg'))
+app.use('/upload', express.static(path.join(__dirname,'upload')))
 
 app.all("*", (req,res)=>{
   res.status(404)
