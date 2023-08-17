@@ -44,7 +44,6 @@ const product_user_id=(req,res)=>{
     const id=req.params.id
     Products.find({user_id:id}).then(product=>{
        res.send({
-        user:req.user,
         product:product
        })
     })
