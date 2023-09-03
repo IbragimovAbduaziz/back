@@ -54,12 +54,7 @@ const Products= new Schema({
       default:"unpaid"
    },
    date:{
-      type:Date,
-      default:Date()
-   },
-   dataend:{
-      type:String,
-      default:1000
+      type:String
    }
 },
    {

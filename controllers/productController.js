@@ -18,8 +18,21 @@ const product_get=(req,res)=>{
     let active=[]
     Products.find().then(data=>{
         data.forEach(e=>{
-            if(e.status=="active"){
-                active.push(e)
+            if(e.status=="active" ){
+                active.push({
+                    _id:e._id,
+                    category:e.category,
+                    name:e.name,
+                    user_fullname:e.user_fullname,
+                    user_id:e.user_id,
+                    phone:e.phone,
+                    amount:e.amount,
+                    volume:e.volume,
+                    price:e.price,
+                    address:e.address,
+                    comment:e.comment,
+                    imges:e.imges,
+                })
             }
         })
         res.send(active)
@@ -28,11 +41,26 @@ const product_get=(req,res)=>{
 
 const product_get_id=(req,res)=>{
     const id=req.params.id
-    Products.findById(id).then(product=>{
-       res.send({
-        user:req.user,
-        product:product
-       })
+    let active=[]
+    Products.findById(id).then(data=>{
+            let product={
+                _id:data._id,
+                category:data.category,
+                name:data.name,
+                user_fullname:data.user_fullname,
+                user_id:data.user_id,
+                phone:data.phone,
+                amount:data.amount,
+                volume:data.volume,
+                price:data.price,
+                address:data.address,
+                comment:data.comment,
+                imges:data.imges,
+            }
+            res.send({
+                user:req.user,
+                product:product
+            })
     })
     .catch(err=>{
         res.status(401).send({messege:"Xatolik"})
