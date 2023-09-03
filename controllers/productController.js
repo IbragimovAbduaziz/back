@@ -24,7 +24,8 @@ const product_get=(req,res)=>{
                     req.query.count>i && 
                     (req.query.category=="" || e.category.match(req.query.category)) &&
                     (req.query.name=="" || e.name.toLowerCase().match(req.query.name.toLowerCase())) &&
-                    (req.query.address=="" || e.address.toLowerCase().match(req.query.address.toLowerCase()))
+                    (req.query.address=="" || e.address.toLowerCase().match(req.query.address.toLowerCase())) &&
+                    (req.query.min<=e.price && req.query.max>=e.price)
                     ){
                         i++
                     active.push({
@@ -146,7 +147,6 @@ const product_update=(req,res)=>{
         res.status(401).send({messege:"Xatolik"})
     })
 }
-
 
 module.exports={category,productall_get,product_get,product_get_id,product_user_id,product_post,product_delete,product_update}
 
