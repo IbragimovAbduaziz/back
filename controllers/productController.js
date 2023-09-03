@@ -17,25 +17,37 @@ const productall_get=(req,res)=>{
 const product_get=(req,res)=>{
     let active=[]
     Products.find().then(data=>{
+        let i=0;
         data.forEach(e=>{
             if(e.status=="active" ){
-                active.push({
-                    _id:e._id,
-                    category:e.category,
-                    name:e.name,
-                    user_fullname:e.user_fullname,
-                    user_id:e.user_id,
-                    phone:e.phone,
-                    amount:e.amount,
-                    volume:e.volume,
-                    price:e.price,
-                    address:e.address,
-                    comment:e.comment,
-                    imges:e.imges,
-                })
+                if(
+                    req.query.count>i && 
+                    (req.query.category=="" || e.category.match(req.query.category)) &&
+                    (req.query.name=="" || e.name.toLowerCase().match(req.query.name.toLowerCase())) &&
+                    (req.query.address=="" || e.address.toLowerCase().match(req.query.address.toLowerCase()))
+                    ){
+                        i++
+                    active.push({
+                        _id:e._id,
+                        category:e.category,
+                        name:e.name,
+                        user_fullname:e.user_fullname,
+                        user_id:e.user_id,
+                        phone:e.phone,
+                        amount:e.amount,
+                        volume:e.volume,
+                        price:e.price,
+                        address:e.address,
+                        comment:e.comment,
+                        imges:e.imges,
+                    })
+                }
             }
         })
-        res.send(active)
+        res.send({
+            count:req.query.count,
+            product:active
+        })
     })
 }
 
